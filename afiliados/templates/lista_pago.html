@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+<a class="btn btn-primary btn-sm" href="/pago/agregar" role="button" >Nuevo</a>  
+<table class="table">
+    <thead>
+      <tr>
+
+        <th>Afiliado</th>
+        <th>Fecha de Pago</th>
+        <th>Monto</th>
+        <th>Recibo</th>
+        <th>Concepto</th>          
+      </tr>
+    </thead>
+    
+    <tbody>
+        
+   
+   {% if object_list %}
+
+      {% for pago in object_list %}
+      <tr>             
+        <td>{{ pago.afiliado }}</td>
+        <td>{{ pago.fecha_pago }}</td> 
+        <td>{{ pago.monto }}</td> 
+        <td>{{ pago.recibo }}</td> 
+        <td>{{ pago.observacion }}</td>
+        
+       
+        <td>
+          <a class="btn btn-warning btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Detalle</a>
+          <a class="btn btn-info btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Editar</a>
+          <a class="btn btn-danger btn-sm" href="/pago/{{pago.id}}/eliminar" role="button" >Eliminar</a>
+        </td>
+        <div class="container">
+  
+</div>
+
+      </tr>
+      {% endfor %}
+
+      {% else %}
+      <h1>No hay registros de Afiliados </h1>
+      {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

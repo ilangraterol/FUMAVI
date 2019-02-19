@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+<a class="btn btn-primary btn-sm" href="/afiliado/agregar" role="button" >Nuevo</a>  
+<table class="table">
+    <thead>
+      <tr>
+
+        <th>Nombre</th>
+        <th>Telefono</th>
+        <th>Rango</th>
+        <th>Ciudad</th>
+        <th>Departamento</th>          
+      </tr>
+    </thead>
+    
+    <tbody>
+        
+   
+   {% if object_list %}
+
+      {% for afiliado in object_list %}
+      <tr> 
+        <td><a href="#{{afiliado.id}}" class="btn btn-info" data-toggle="collapse">{{ afiliado.nombre }} {{ afiliado.apellido }}</a>
+          <div id="{{afiliado.id}}" class="collapse">            
+                         
+                <strong>Servicios: </strong> {{ afiliado.servicios.all|join:' - '}}. <br/>
+                <strong>Mensualidad:</strong> ${{afiliado.mensualidad}} <br/>
+              
+          </div>         
+              
+        
+
+        <td>{{ afiliado.prefijo }}+ {{ afiliado.telefono }}</td>
+        <td>{{ afiliado.rango }}</td> 
+        <td>{{ afiliado.ciudad }}</td> 
+        <td>{{ afiliado.departamento }}</td>
+        
+       
+        <td>
+          <a class="btn btn-warning btn-sm" href="/afiliado/{{afiliado.id}}/editar" role="button" >Detalle</a>
+          <a class="btn btn-info btn-sm" href="/afiliado/{{afiliado.id}}/editar" role="button" >Editar</a>
+          <a class="btn btn-danger btn-sm" href="/afiliado/{{afiliado.id}}/eliminar" role="button" >Eliminar</a>
+        </td>
+        <div class="container">
+  
+</div>
+
+      </tr>
+      {% endfor %}
+
+      {% else %}
+      <h1>No hay registros de Afiliados </h1>
+      {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

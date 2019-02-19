@@ -1,0 +1,73 @@
+<!--{% load staticfiles %}  -->
+<!DOCTYPE html>
+<html lang="es">
+  
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+  <body>
+    {% block header %}
+    <div class="container">
+      <div class="header clearfix">
+        {% endblock %}
+        {% block tittle %}<h3 class="text-muted"> </h3>{% endblock  %}
+      </div>
+
+      <div class="jumbotron">
+        <img src="http://fumavi.org/wp-content/uploads/2016/12/Logo-web-fumavi-02.jpg" alt=""><p class="card-text">
+        <h1>Sistema de Gestión de Afiliados</h1>
+        <p class="lead">Porque contigo está el manantial de la vida; En tu luz veremos la luz".
+        Salmos 36:9.</p>
+       <a class="btn btn-lg btn-success" href="/" role="button">Afiliados</a>       
+       <a class="btn btn-lg btn-success" href="/pago" role="button">Pagos</a>
+       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">EPS</a>
+       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">Citas Médicas</a>
+       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">Pagos</a>
+      </div>
+
+
+
+    {% block content %}
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4>Subheading</h4>
+        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+        <h4>Subheading</h4>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+        <h4>Subheading</h4>
+        <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+      </div>
+
+      <div class="col-lg-6">
+        <h4>Subheading</h4>
+        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+        <h4>Subheading</h4>
+        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+        <h4>Subheading</h4>
+        <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+      </div>
+    </div>
+    {% endblock %}
+
+    {% block footer %}
+    <footer class="footer">
+
+      <p>&copy; FUMAVI -  2019 Fundacion Manantial de Vida, Inc .</p>
+    </footer>
+      </div> <!-- /container -->
+    {% endblock %}
+
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
