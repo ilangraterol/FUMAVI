@@ -1,47 +1,65 @@
 {% extends 'base/base.html' %}
 
+ 
+
+
 {% block content%}
-<a class="btn btn-primary btn-sm" href="/pago/agregar" role="button" >Nuevo</a>  
+
+<title>
+    {% block title %}Lista Pagos{% endblock %}
+</title>
+<a class="btn btn-primary btn-sm" href="/pago/agregar" role="button" >Agregar Pago</a>  
 <table class="table">
     <thead>
-      <tr>
-
-        <th>Afiliado</th>
+      <tr>        
         <th>Fecha de Pago</th>
+        <th>Cliente</th>
         <th>Monto</th>
         <th>Recibo</th>
         <th>Concepto</th>          
       </tr>
     </thead>
     
-    <tbody>
-        
+    <tbody> 
    
-   {% if object_list %}
-
-      {% for pago in object_list %}
-      <tr>             
-        <td>{{ pago.afiliado }}</td>
-        <td>{{ pago.fecha_pago }}</td> 
-        <td>{{ pago.monto }}</td> 
+   {% if lista_pagos %}
+      {% for pago in lista_pagos %} 
+      <tr> 
+        <td>{{ pago.fecha_pago }}</td>            
+        <td><a class="btn btn-primary btn-sm" href="/afiliado/{{pago.afiliado.id}}"> {{ pago.afiliado.nombre }} {{ pago.afiliado.apellido }} </td></a>
+         
+        <td>${{ pago.monto }}</td> 
         <td>{{ pago.recibo }}</td> 
-        <td>{{ pago.observacion }}</td>
-        
-       
+        <td>{{ pago.observacion }}</td>     
         <td>
-          <a class="btn btn-warning btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Detalle</a>
-          <a class="btn btn-info btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Editar</a>
-          <a class="btn btn-danger btn-sm" href="/pago/{{pago.id}}/eliminar" role="button" >Eliminar</a>
+            <a class="btn btn-warning btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Detalle</a>
+            <a class="btn btn-info btn-sm" href="/pago/{{pago.id}}/editar" role="button" >Editar</a>
+            <a class="btn btn-danger btn-sm" href="/pago/{{pago.id}}/eliminar" role="button" >Eliminar</a>
         </td>
-        <div class="container">
-  
-</div>
-
+      <div class="container">
+  </div>
       </tr>
       {% endfor %}
 
+     {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/pago?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span class="page-current">
+                    Pagina {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/pago?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+     
+     {% endif %}
+
       {% else %}
-      <h1>No hay registros de Afiliados </h1>
+      <h1>No hay Pagos </h1>
       {% endif %}
     </tbody>
   </table>

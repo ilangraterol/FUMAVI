@@ -2,17 +2,17 @@
 
 {% block content%}
 
- <div class="container">
-      <div class="header clearfix">
-      
+<title>
+    {% block title %}Nuevo Clientes{% endblock %}
+</title>
 
+ <div class="container">
+      <div class="header">
 <form method="post">{% csrf_token %}
   <div class="col-sm-6" style="background-color:white;">{{ form.as_p }}</div>
   <button type="submit" class="btn btn-primary btn-sm">Guardar</button>  
-  <a class="btn btn-danger btn-sm" href="/index" role="button" >Cancelar</a>
+  <a class="btn btn-danger btn-sm" href="/afiliado" role="button" >Cancelar</a>
 </form>
-
-
-		</div>
+	  </div>
 </div>		
 {% endblock %}

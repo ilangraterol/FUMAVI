@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+
+<title>
+    {% block title %}Borrar Pago{% endblock %}
+</title>
+<form method="post">{% csrf_token %}
+
+  <div class="alert alert-danger"><strong>Atención!</strong>  <h4>¿Desea Eliminar el Pago de : {{ pago.afiliado.nombre }} {{ pago.afiliado.apellido }}?
+
+    <input class="btn btn-primary btn-sm" type="submit" value="Si, Eliminar"/>
+
+  <a class="btn btn-danger btn-sm" href="/afiliado/{{pago.afiliado.id}}" role="button" >Cancelar</a>
+  
+
+</h4></div>
+</form>
+
+
+
+
+{% endblock %}

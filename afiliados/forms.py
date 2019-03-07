@@ -1,5 +1,5 @@
 from django import forms
-from .models import  Afiliado, Pago
+from .models import  Afiliado, Pago, EmpresaAfiliada
 
 
 
@@ -13,8 +13,9 @@ class RegistroAfiliado(forms.ModelForm):
             'nombre',
             'apellido',
             'sexo',
-            'tipoDoc',          
-            'documento',
+            'tipoDoc',
+            'documento', 
+            'fecha_nacimiento',            
             'rango',
             'servicios',
             'distrito',
@@ -22,6 +23,7 @@ class RegistroAfiliado(forms.ModelForm):
             'ciudad',                       
             'departamento',
             'prefijo',
+            'mensualidad',
             'telefono',
             'email',
             'estatus',
@@ -68,6 +70,34 @@ class RegistroAfiliado(forms.ModelForm):
          
 
         }
+
+class RegistroEmpresa(forms.ModelForm):
+
+    class Meta:
+        model = EmpresaAfiliada
+        fields = [                 
+            'nombre',
+            'nit',
+            'telefono',
+                   
+        ]
+        labels = {     
+
+            'nombre':'Nombre de la Empresa',
+            'nit':'nit',
+            'telefono:' : 'telefono',            
+          
+        }
+        widgets = {     
+        
+          #  'fecha_afiliacion': forms.SelectDateWidget(attrs={'class':'form-control'}),
+
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'nit': forms.TextInput(attrs={'class':'form-control'}),
+            'telefono': forms.TextInput(attrs={'class':'form-control'}),           
+       
+            
+        }        
 
 class RegistroPago(forms.ModelForm):
 

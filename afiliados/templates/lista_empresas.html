@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block content%}
+
+<title>
+    {% block title %}Empresas{% endblock %}
+</title>
+
+<a class="btn btn-info btn-sm" href="/empresa/agregar" role="button" >Nuevo</a>
+  
+<table class="table">
+    <thead>
+      <tr>
+
+        <th>Empresa</th>
+        <th>NIT</th>
+        <th>Telefono</th>                
+      </tr>
+    </thead>
+    
+    <tbody>
+
+   
+         
+        
+        
+   
+   {% if lista_empresas %}
+
+      {% for empresa in lista_empresas %}
+      <tr> 
+        <td><a href="/empresa/{{empresa.id}}" class="btn btn-link" data-toggle="collapse"><strong>{{ empresa.nombre }} </strong></a> 
+        <td>{{ empresa.nit }}</td>
+        <td>{{ empresa.telefono }}</td>
+               
+           {% for mensaje in mensaje %} 
+             <td>         
+          <a target="_blank" 
+             href="https://wa.me/{{empresa.prefijo}}{{empresa.telefono}}?text={{mensaje.saludo}}%20{{empresa.nombre}}"
+             class="btn btn-success">
+                <span class="glyphicon glyphicon-bell"></span> </a>
+
+          {% endfor %}      
+        
+          <a class="btn btn-info btn-sm" href="/empresa/{{empresa.id}}/editar" role="button" >Editar</a>
+          <a class="btn btn-danger btn-sm" href="/empresa/{{empresa.id}}/eliminar" role="button" >Eliminar</a>
+        </td>
+        <div class="container">
+  
+</div>
+
+      </tr>
+
+      {% endfor %}
+
+      {% else %}
+      <h1>No hay registros de Afiliados </h1>
+      {% endif %}
+    </tbody>
+  </table>
+
+{% endblock %}

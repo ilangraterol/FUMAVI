@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+
+
+<form method="post">{% csrf_token %}
+
+  <h3>¿Desea Eliminar a el Señor: {{ afiliado.nombre }} {{ afiliado.apellido }}?</h3>
+
+  <input class="btn btn-primary btn-sm" type="submit" value="Si, Eliminar"/>
+
+  <a class="btn btn-danger btn-sm" href="" role="button" >Cancelar</a>
+
+</form>
+
+
+
+
+{% endblock %}

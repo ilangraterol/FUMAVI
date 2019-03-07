@@ -1,0 +1,76 @@
+{% extends 'base/base.html' %}
+
+
+<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+  
+{% block content %}
+
+{% for afiliado in afiliados %}
+
+<title>{{ afiliado.nombre }}</title>
+
+	<strong><h2>{{ afiliado.nombre }} {{ afiliado.apellido }}  ({{ afiliado.documento }}) - {{afiliado.rango}}
+		<a class="btn btn-info btn-sm" href="/afiliado/{{afiliado.id}}/editar" role="button" >Editar</a></a></h2> </strong> <br/>
+  
+	
+	<div class="alert alert-info">
+  		<h4><strong>Informacion Personal: </strong> <br/></h4>
+      <strong>Nombre Completo:</strong> {{ afiliado.nombre }} {{ afiliado.apellido }} ({{ afiliado.documento }}) 
+
+	 	<strong>Sexo:</strong> {{ afiliado.sexo }}   <strong> Fecha de Nacimiento:</strong> {{ afiliado.fecha_nacimiento }} <br/> 
+	 	<strong>Dirección:</strong> {{ afiliado.direccion }} <strong>({{afiliado.ciudad}}) ({{ afiliado.departamento}})</strong><br/> 
+	 	<strong>Movil:</strong> (+{{afiliado.prefijo}}) {{ afiliado.telefono }}  <strong>Fijo: </strong> {{afiliado.fijo}}<br/>	 	 	
+	 	<strong>E-mail:</strong> {{ afiliado.email }}<br/> 
+	</div>
+
+	<div class="alert alert-danger">
+  		<h4><strong>Informacion Seguridad Social: </strong> <br/></h4>
+  		<strong>Rango: </strong> {{ afiliado.rango }} <br/> 
+  		<strong>EPS Actual: </strong> {{ afiliado.epsactual }}<br/>  
+      <strong>EPS Donde quiere ser Trasladado: </strong>{{ afiliado.epstraslado }} <br/>
+  		<strong>PIN con que incresa a la Seguridad Social: </strong> {{ afiliado.pinseguridadsocial }} <br/>
+	</div>
+
+	<div class="alert alert-success">
+  		<h4><strong>Pagos y Servicios:</strong> <a class="btn btn-info btn-sm" href="/pago/agregar" role="button" >Añadir</a><br/></h4> 
+  		 <strong>Servicios:</strong> {{ afiliado.servicios.all|join:' - '}} <br/>   <strong>Mensualidad:</strong> ${{ afiliado.mensualidad }}<br/> 
+  	
+{% endfor %}
+  	<table class="table">
+    <thead>
+      <tr>
+        <th>Fecha de Pago</th>
+        <th>Monto</th>
+        <th>Recibo</th>
+        <th>Concepto</th>              
+      </tr>
+    </thead>    
+    <tbody>	
+    {% if pagos %}	
+
+    	{% for pagos in pagos %}
+    
+    <tr> 
+    	 <td>{{ pagos.fecha_pago }}</td> 
+     	 <td>$ {{ pagos.monto }}</td> 
+         <td>{{ pagos.recibo }}</td> 
+         <td>{{ pagos.observacion }}</td> 
+         <td>
+         	<a class="btn btn-danger btn-sm" href="/pago/{{pagos.id}}/eliminar" role="button"</td>X</a>
+         </td>
+        <div class="container"> 
+    </div>
+
+    
+		{% endfor %}
+	{% else %}
+      <h1>No hay pagos de Afiliado </h1>
+     {% endif %}	
+	   </tbody>
+  </table>
+	
+{% endblock %}
+
+
+
+

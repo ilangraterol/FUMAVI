@@ -1,7 +1,14 @@
 {% extends 'base/base.html' %}
-
+{% load staticfiles %}
 {% block content%}
-<a class="btn btn-primary btn-sm" href="/afiliado/agregar" role="button" >Nuevo</a>  
+
+<title>
+    {% block title %}Clientes{% endblock %}
+</title>
+
+<a class="btn btn-info btn-sm" href="/afiliado/agregar" role="button" >Nuevo</a>
+<a class="btn btn-info btn-sm" href="/afiliado" role="button" >Activos</a> 
+<a class="btn btn-info btn-sm" href="/afiliador" role="button" >Retirados</a>   
 <table class="table">
     <thead>
       <tr>
@@ -15,21 +22,19 @@
     </thead>
     
     <tbody>
+
+  
+        <strong>Total: {{conteo}}</strong>
         
    
-   {% if object_list %}
+   {% if lista_afiliados %}
 
-      {% for afiliado in object_list %}
+      {% for afiliado in lista_afiliados %}
       <tr> 
-        <td><a href="#{{afiliado.id}}" class="btn btn-info" data-toggle="collapse">{{ afiliado.nombre }} {{ afiliado.apellido }}</a>
-          <div id="{{afiliado.id}}" class="collapse">            
-                         
-                <strong>Servicios: </strong> {{ afiliado.servicios.all|join:' - '}}. <br/>
-                <strong>Mensualidad:</strong> ${{afiliado.mensualidad}} <br/>
-              
-          </div>         
-              
-        
+
+        <td><a href="/afiliado/{{afiliado.id}}" class="btn btn-link" data-toggle="collapse"><strong>{{ afiliado.nombre }} {{ afiliado.apellido }}
+         
+        </strong></a>    
 
         <td>{{ afiliado.prefijo }}+ {{ afiliado.telefono }}</td>
         <td>{{ afiliado.rango }}</td> 
@@ -37,8 +42,15 @@
         <td>{{ afiliado.departamento }}</td>
         
        
-        <td>
-          <a class="btn btn-warning btn-sm" href="/afiliado/{{afiliado.id}}/editar" role="button" >Detalle</a>
+
+       {% for mensaje in mensaje %}
+        <td>         
+          <a target="_blank" 
+             href="https://wa.me/{{afiliado.prefijo}}{{afiliado.telefono}}?text={{mensaje.saludo}}%20{{afiliado.nombre}}%20{{afiliado.apellido}}%20{{mensaje.asunto}}{{afiliado.mensualidad}}%20{{mensaje.asunto2}}%20{{ afiliado.servicios.all|join:', '}}%20{{mensaje.mensaje}}%20{{mensaje.despedida}}"
+             class="btn btn-success">
+                <span class="glyphicon glyphicon-bell"></span> 
+          </a>
+        {% endfor %}
           <a class="btn btn-info btn-sm" href="/afiliado/{{afiliado.id}}/editar" role="button" >Editar</a>
           <a class="btn btn-danger btn-sm" href="/afiliado/{{afiliado.id}}/eliminar" role="button" >Eliminar</a>
         </td>

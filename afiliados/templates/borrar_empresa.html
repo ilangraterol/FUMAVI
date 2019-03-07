@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block content%}
+
+
+<form method="post">{% csrf_token %}
+
+  <h3>¿Desea Eliminar la empresa: {{ EmpresaAfiliada.nombre }} {{ afiliado.apellido }}?</h3>
+
+  <input class="btn btn-primary btn-sm" type="submit" value="Si, Eliminar"/>
+
+  <a class="btn btn-danger btn-sm" href="/empresa" role="button" >Cancelar</a>
+
+</form>
+
+
+
+
+{% endblock %}

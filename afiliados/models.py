@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 
 class Departamento(models.Model):
@@ -68,7 +70,7 @@ class Afiliado(models.Model):
     sexo = models.CharField(max_length=12, blank=True, choices=(('M', 'Masculino'), ('F', 'Femenino'),))
     fecha_nacimiento = models.DateField(null=True, blank=True) 
     tipoDoc = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE, verbose_name='Tipo de Documento')      
-    documento = models.CharField(max_length=50)
+    documento = models.CharField(max_length=50, unique=True)
     mensualidad = models.FloatField(blank=True, null = True)
     rango = models.ForeignKey(Rango, blank=True, null = True, on_delete=models.CASCADE)     
     servicios = models.ManyToManyField(TipoServicio, blank=True, verbose_name='servicios') 
@@ -84,21 +86,32 @@ class Afiliado(models.Model):
     epsactual = models.CharField(max_length=50, blank=True, verbose_name='Eps donde se Encuentra Actualmente') 
     epstraslado = models.CharField(max_length=50, blank=True, verbose_name='Eps a donde quiere ser Trasladado') 
     pinseguridadsocial = models.CharField(max_length=15, blank=True, verbose_name='PIN con que ingresa Seguridad Social') 
+    
     def servicios_afiliado(self):
         return "/".join([str(p) for p in self.servicios.all()]) 
 
     class Meta:
         #ordering = ["nombre"]
-        verbose_name_plural = "Afiliados"    
-
+        verbose_name_plural = "Afiliados"
        
     def __str__(self):
         cadena = "{0} {1}: Celular: ({2})-{3} - CC: {4} - {5}  "
         return cadena.format(self.nombre, self.apellido, self.prefijo, self.telefono, self.documento, self.rango)      
 
+    def pago_recientemente(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.fecha_pago <= now
+    pago_recientemente.admin_order_field = 'fecha_pago'
+    pago_recientemente.boolean = True
+    pago_recientemente.short_description = 'Pago recently?'
+
+
+
+
 class EmpresaAfiliada(models.Model):
     nombre = models.CharField(max_length=50)
-    nit = models.CharField(max_length=50, blank = True)
+    nit = models.CharField(max_length=50, blank = True, unique=True)
+    prefijo = models.CharField(default = 57, max_length=2, blank=False)
     telefono = models.CharField(max_length=50, blank=True, verbose_name='Telefono de la Empresa')    
     def __str__(self):
         cadena = "{0} {1}"
@@ -129,7 +142,14 @@ class Pago(models.Model):
     
     def __str__(self):
         cadena = "{0} {1} {2}"
-        return cadena.format(self.afiliado, self.fecha_pago, self.monto) 
+        return cadena.format(self.afiliado, self.fecha_pago, self.monto)
+
+    #def pago_recientemente(self):
+        #now = timezone.now()
+        #return now - datetime.timedelta(days=1) <= self.fecha_pago <= now
+    #pago_recientemente.admin_order_field = 'fecha_pago'
+    #pago_recientemente.boolean = True
+    #pago_recientemente.short_description = 'Pago recently?'     
 
 class PagoEmpresa(models.Model):
     empresaafiliada = models.ForeignKey(EmpresaAfiliada, on_delete=models.CASCADE,verbose_name='Quién realizó el Pago?')    

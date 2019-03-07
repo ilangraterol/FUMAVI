@@ -1,12 +1,12 @@
-<!--{% load staticfiles %}  -->
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
   
   <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.css'%}"></script>
 </head>
 
   <body>
@@ -19,14 +19,14 @@
 
       <div class="jumbotron">
         <img src="http://fumavi.org/wp-content/uploads/2016/12/Logo-web-fumavi-02.jpg" alt=""><p class="card-text">
-        <h1>Sistema de Gestión de Afiliados</h1>
+        <h1>Afiliados a la  Seguridad Social</h1>
         <p class="lead">Porque contigo está el manantial de la vida; En tu luz veremos la luz".
         Salmos 36:9.</p>
-       <a class="btn btn-lg btn-success" href="/" role="button">Afiliados</a>       
+       <a class="btn btn-lg btn-success" href="/" role="button">Afiliados</a>
+       <a class="btn btn-lg btn-success" href="/empresa" role="button">Empresas</a>       
        <a class="btn btn-lg btn-success" href="/pago" role="button">Pagos</a>
        <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">EPS</a>
-       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">Citas Médicas</a>
-       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">Pagos</a>
+       <a class="btn btn-lg btn-success" href="/eps/agregar" role="button">Citas Médicas</a>       
       </div>
 
 
