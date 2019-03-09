@@ -4,13 +4,13 @@ import datetime
 
 
 class Departamento(models.Model):
-    nombre = models.CharField(max_length=50)    
+    nombre = models.CharField(max_length=50, unique=True)    
     def __str__(self):
         cadena = "{0} "
         return cadena.format(self.nombre)      
 
 class Ciudad(models.Model):
-    nombre = models.CharField(max_length=50)    
+    nombre = models.CharField(max_length=50, unique=True)    
     def __str__(self):
         cadena = "{0} "
         return cadena.format(self.nombre) 
@@ -58,7 +58,7 @@ class EmpresaSeguridadSocial(models.Model):
         verbose_name_plural = "Empresas Seguridad Social"      
 
 class Vinculo(models.Model): 
-    nombre = models.CharField(max_length=50) 
+    nombre = models.CharField(max_length=50, unique=True) 
     def __str__(self):
         cadena = "{0}"
         return cadena.format(self.nombre)              

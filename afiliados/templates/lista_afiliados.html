@@ -6,9 +6,11 @@
     {% block title %}Clientes{% endblock %}
 </title>
 
-<a class="btn btn-info btn-sm" href="/afiliado/agregar" role="button" >Nuevo</a>
+<a class="btn btn-success btn-sm" href="/afiliado/agregar" role="button" >Nuevo</a>
 <a class="btn btn-info btn-sm" href="/afiliado" role="button" >Activos</a> 
-<a class="btn btn-info btn-sm" href="/afiliador" role="button" >Retirados</a>   
+<a class="btn btn-info btn-sm" href="/afiliador" role="button" >Retirados</a>  
+<a class="btn btn-info btn-sm" href="/afiliadon" role="button" >Nivelados</a> 
+<a class="btn btn-info btn-sm" href="/afiliadoo" role="button" >Ordenados</a> 
 <table class="table">
     <thead>
       <tr>
@@ -24,7 +26,7 @@
     <tbody>
 
   
-        <strong>Total: {{conteo}}</strong>
+        <strong>Total: {{conteo}} {{n}}</strong>
         
    
    {% if lista_afiliados %}

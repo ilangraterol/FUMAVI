@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 from .forms import *
 from afiliados.models import *
@@ -46,17 +47,37 @@ class AfiliadoList(ListView):
     def get_context_data(self, *args, **kwargs): 
         lista_afiliados = Afiliado.objects.filter(estatus=1).order_by('nombre') 
         mensaje = Notificaciones.objects.filter(tipo="Cobro") 
-        conteo = Afiliado.objects.filter(estatus=1).count()       
-        return { 'lista_afiliados': lista_afiliados, 'mensaje': mensaje, 'conteo':conteo}     
+        conteo = Afiliado.objects.filter(estatus=1).count()
+        n = 'Activos'      
+        return { 'lista_afiliados': lista_afiliados, 'mensaje': mensaje, 'conteo':conteo, 'n': n}     
 
-class AfiliadoListRetirados(AfiliadoList):
-    template_name = 'lista_afiliados_retirados.html'
+class AfiliadoListRetirados(AfiliadoList):    
     
     def get_context_data(self, *args, **kwargs):    
-        lista_retirados = Afiliado.objects.filter(estatus=0).order_by('nombre') 
-        mensaje = Notificaciones.objects.filter(tipo="Cobro")              
-        return { 'lista_retirados': lista_retirados, 'mensaje' : mensaje }                  
+        lista_afiliados = Afiliado.objects.filter(estatus=0).order_by('nombre') 
+        mensaje = Notificaciones.objects.filter(tipo="Cobro") 
+        conteo = Afiliado.objects.filter(estatus=0).count() 
+        n = 'Retirados'                
+        return { 'lista_afiliados': lista_afiliados, 'mensaje' : mensaje, 'conteo': conteo, 'n': n }                  
 
+class AfiliadoListNivelados(AfiliadoList):    
+    
+    def get_context_data(self, *args, **kwargs):    
+        lista_afiliados = Afiliado.objects.filter(Q(rango__nombre='Nivelado') & Q(estatus=1)).order_by('nombre')
+        #Foo.objects.filter(Q(name__type='any') & Q(name__type='some')
+        mensaje = Notificaciones.objects.filter(tipo="Cobro") 
+        conteo = Afiliado.objects.filter(Q(rango__nombre='Nivelado') & Q(estatus=1)).count()            
+        n = 'Nivelados'     
+        return { 'lista_afiliados': lista_afiliados, 'mensaje' : mensaje, 'conteo': conteo , 'n': n}
+
+class AfiliadoListOrdenados(AfiliadoList):    
+    
+    def get_context_data(self, *args, **kwargs):    
+        lista_afiliados = Afiliado.objects.filter(Q(rango__nombre='Ordenado') & Q(estatus=1)).order_by('nombre')
+        mensaje = Notificaciones.objects.filter(tipo="Cobro") 
+        conteo = Afiliado.objects.filter(Q(rango__nombre='Ordenado') & Q(estatus=1)).count()
+        n = 'Ordenados'                 
+        return { 'lista_afiliados': lista_afiliados, 'mensaje' : mensaje, 'conteo': conteo, 'n': n }          
 
 class AfiliadoCreate(CreateView):
     model = Afiliado
