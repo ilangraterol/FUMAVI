@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'afiliados',
     'notificaciones',
+    'convenios',
     'rest_framework',
 ]
 
